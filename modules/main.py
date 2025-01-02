@@ -242,11 +242,6 @@ async def account_login(bot: Client, m: Message):
     await m.reply_text("🔰Done🔰")
 
 
-async def start_bot():
-    await bot.start()
-    print("Bot is running...")
-    await bot.idle()  # Keeps the bot running
-
 # Start Flask and bot
 def main():
     # Run Flask app in a separate thread
@@ -255,9 +250,9 @@ def main():
 
     flask_thread = Thread(target=run_flask, daemon=True)
     flask_thread.start()
-
-    # Start bot using asyncio
-    asyncio.run(start_bot())
+    
+    bot.run()
+    print("Bot Started")
 
 if __name__ == "__main__":
     try:
