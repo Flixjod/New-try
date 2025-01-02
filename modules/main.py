@@ -242,17 +242,25 @@ async def account_login(bot: Client, m: Message):
     await m.reply_text("🔰Done🔰")
 
 
-if __name__ == "__main__":
-    # Start Flask app in a separate thread
+async def start_bot():
+    await bot.start()
+    print("Bot is running...")
+    await bot.idle()  # Keeps the bot running
+
+# Start Flask and bot
+def main():
+    # Run Flask app in a separate thread
     def run_flask():
         app.run(host='0.0.0.0', port=8000)
 
-    flask_thread = Thread(target=run_flask)
+    flask_thread = Thread(target=run_flask, daemon=True)
     flask_thread.start()
 
-    # Start polling for Telegram updates
-    try:
-        await bot.start()
-    except Exception as e:
-        print(f"Error in bot polling: {str(e)}")
+    # Start bot using asyncio
+    asyncio.run(start_bot())
 
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Shutting down...")
