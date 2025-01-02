@@ -20,7 +20,16 @@ from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
 from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from flask import Flask
 
+
+# Initialize Flask app
+app = Flask(__name__)
+
+# Flask health check endpoint
+@app.route("/health", methods=["GET"])
+def health_check():
+    return "Bot is running!", 200
 
 bot = Client(
     "bot",
@@ -228,4 +237,17 @@ async def account_login(bot: Client, m: Message):
     await m.reply_text("🔰Done🔰")
 
 
-bot.run()
+def run_flask():
+    app.run(host="0.0.0.0", port=5000, use_reloader=False)
+
+
+# Function to run both Flask and Pyrogram concurrently
+async def main():
+    # Run Flask app in a separate thread
+    threading.Thread(target=run_flask).start()
+
+    # Start the Pyrogram bot
+    await bot.start()
+
+if __name__ == "__main__":
+    asyncio.run(main())
