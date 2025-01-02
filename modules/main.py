@@ -250,9 +250,10 @@ def main():
 
     flask_thread = Thread(target=run_flask, daemon=True)
     flask_thread.start()
-    
-    bot.run()
+
     print("Bot Started")
+    bot.run()
+    
 
 if __name__ == "__main__":
     try:
