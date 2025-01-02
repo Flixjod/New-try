@@ -34,9 +34,9 @@ def health_check():
 
 bot = Client(
     "bot",
-    api_id=28466214,
-    api_hash= "3f55d44aae0f6c72f0dd8855adeeb60f",
-    bot_token= "7964362369:AAHqjKj161Lb7h4sRF3GtfsiXa9V45xErTE")
+    api_id=25462574,
+    api_hash= "315990ee36a600cae71d75e3fe004916",
+    bot_token= "7833223037:AAHapcKpcHkNyODi2XeTnMeS5QKxuebQ6CU")
 
 
 @bot.on_message(filters.command(["start"]))
